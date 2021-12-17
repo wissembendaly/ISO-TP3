@@ -11,7 +11,6 @@ public class TodoMvcObjects {
 
 	private By technologies = By.cssSelector(".js-app-list-inner.applist.js");
 	private By todoInput = By.className("new-todo");
-	private By listTodo = By.className("todo-list");
 	private By todoNumber = By.cssSelector(".todo-count>strong");
 	
 	public void clickIntoTechnology(WebDriver driver,String name) {
@@ -23,12 +22,12 @@ public class TodoMvcObjects {
 		driver.findElement(this.todoInput).sendKeys(Keys.RETURN);
 	}
 	
-	public void checkTodo(WebDriver driver,String todo) {
-		driver.findElement(this.listTodo).findElement(By.linkText(todo)).findElement(By.xpath("//parent::div/input")).click();
+	public void remove(WebDriver driver,int elementIndex) {
+		driver.findElement(By.cssSelector("li:nth-child(" + elementIndex + ") > div > input")).click();
 	}
 	
 	public void verifyTodoList(WebDriver driver, String number) {
-		Assert.assertEquals("Pas de compte ? Créez-en un", driver.findElement(this.todoNumber).getText());
+		Assert.assertEquals(number, driver.findElement(this.todoNumber).getText());
 		
 	}
 	
